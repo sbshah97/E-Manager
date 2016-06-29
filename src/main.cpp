@@ -5,6 +5,55 @@
 #include<string>
 using namespace std;
 
+class acc
+{       long int accnum1;
+        string pswd1;
+        int cash1;
+    public:
+        void get_data();
+        void display_data(); //only for debugging
+}n;
+
+
+void acc::get_data()
+{
+
+        cout<<"Enter cash to deposit initially (min 500):";
+        cin>>cash1;
+        cout<<"Enter your account password:";
+        cin>>pswd1;
+
+        //Generating account no
+        ifstream f;
+        f.open("Acc_no.txt",ios::in);
+        int i;
+        f>>accnum1;
+        accnum1++;
+        f.close();
+
+        ofstream f1;
+        f1.open("Acc_no.txt",ios::out);
+        f1<<accnum1;
+        f1.close();
+
+        cout<<"Account no generated:"<<accnum1<<endl;
+
+        cout<<"Account created successfully";
+}
+
+void acc::display_data()
+{
+    ifstream f2;
+    f2.open("bankaccounts.txt",ios::in);
+
+    while(f2.read((char*)&n,sizeof(n)))
+    {   //f2.read((char*)&n,sizeof(n));
+        cout<<endl<<"Account number:"<<n.accnum1<<" ";
+        cout<<"Cash in account:"<<n.cash1;
+    }
+    f2.close();
+
+}
 
 void newAccount();
 void editAccount(int, string);
@@ -93,7 +142,15 @@ int main() {
 }
 
 //Function to add new account
-void newAccount() {
+void newAccount() 
+{       
+        cout<<"*** Welcome to new account creation ***";
+        n.get_data();
+        ofstream f;
+        f.open("bankaccounts.txt",ios::app);
+        f.write((char*)&n,sizeof(n));
+        f.close();
+        n.display_data(); //Only for debugging
 
 }
 
