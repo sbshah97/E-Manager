@@ -3,18 +3,31 @@
 #include<cmath>
 #include<algorithm>
 #include<string>
+#include<fstream>
 using namespace std;
 
 class acc
 {       long int accnum1;
         string pswd1;
         int cash1;
+
     public:
+        char name[256];
         void get_data();
-        void display_data(); //only for debugging
+        void display_data();
+        long int retacc_no();
+        void add_m(long int);
+        void sub_m(long int);
+        int ret_cash()
+        {
+            return cash1;
+        }
 }n;
 
-
+long int acc::retacc_no()
+{
+    return accnum1;
+}
 void acc::get_data()
 {
 
@@ -26,7 +39,7 @@ void acc::get_data()
         //Generating account no
         ifstream f;
         f.open("Acc_no.txt",ios::in);
-        int i;
+
         f>>accnum1;
         accnum1++;
         f.close();
@@ -43,25 +56,77 @@ void acc::get_data()
 
 void acc::display_data()
 {
-    ifstream f2;
-    f2.open("bankaccounts.txt",ios::in);
-
-    while(f2.read((char*)&n,sizeof(n)))
-    {   //f2.read((char*)&n,sizeof(n));
-        cout<<endl<<"Account number:"<<n.accnum1<<" ";
+   
+        cout<<"\nName:"<<n.name<<endl;
+        cout<<endl<<"Account number:"<<n.accnum1<<endl;
         cout<<"Cash in account:"<<n.cash1;
-    }
-    f2.close();
+   
+}
+
+//Member Function to add money
+
+void acc::add_m(long int accnum)
+{       fstream f2;
+            f2.open("bankaccounts.txt",ios::in|ios::out);
+
+            while(f2.read((char*)&n,sizeof(n)))
+            {   if(n.retacc_no()==accnum)
+                    {
+                        n.display_data();
+                        break;
+                    }
+
+            }
+
+
+        int addmoney;
+            cout << "Enter the amount of money to be added to your account" << endl;
+            cin >> addmoney;
+            cout<<"Amount added successfully"<<endl;
+            int filepos=f2.tellg();
+            n.cash1+=addmoney;
+            cout<<"New account balance:"<<n.cash1;
+            f2.seekp(filepos-sizeof(n),ios::beg);
+            f2.write((char*)&n,sizeof(n));
+            f2.close();
+}
+
+//Member Function to remove money
+
+void acc::sub_m(long int accnum)
+{       fstream f2;
+            f2.open("bankaccounts.txt",ios::in|ios::out);
+
+            while(f2.read((char*)&n,sizeof(n)))
+            {   if(n.retacc_no()==accnum)
+                    {
+                        n.display_data();
+                        break;
+                    }
+
+            }
+
+
+        int submoney;
+            cout << "Enter the amount of money to be removed from your account" << endl;
+            cin >> submoney;
+            cout<<"Amount removed successfully"<<endl;
+            n.cash1-=submoney;
+            cout<<"New account balance:"<<n.cash1;
+            int filepos=f2.tellg();
+            f2.seekp(filepos-sizeof(n),ios::beg);
+            f2.write((char*)&n,sizeof(n));
+            f2.close();
 
 }
 
 void newAccount();
-void editAccount(int, string);
+void editAccount(long int, string);
 
-void admin(int, string);
-void client(int, string);
+void admin(long int, string);
+void client(long int, string);
 
-char name[256];
+
 
 int main() {
 
@@ -71,8 +136,8 @@ int main() {
 
     //Inputting user's name to greet the user.
 
-    cin.getline (name,256);
-    cout << "Good day to you, " << name << endl;
+    cin.getline (n.name,256);
+    cout << "Good day to you, " << n.name << endl;
     printf("\n");
 
     //Start banking functions
@@ -85,7 +150,7 @@ int main() {
 
     //Choose options
     int choice;
-    int accnum;
+    long int accnum;
     string pswd;
     cin >> choice;
     printf("\n");
@@ -105,7 +170,7 @@ int main() {
             cin >> accnum;
 
             //Default account number set up.
-            if(accnum == 123456) {
+            if(accnum == 100002) {
                 wrongpswd:
                 cout << "Enter your account's password" << endl;
                 cin >> pswd;
@@ -142,8 +207,8 @@ int main() {
 }
 
 //Function to add new account
-void newAccount() 
-{       
+void newAccount()
+{
         cout<<"*** Welcome to new account creation ***";
         n.get_data();
         ofstream f;
@@ -155,7 +220,7 @@ void newAccount()
 }
 
 //Function to edit existing account
-void editAccount(int accnum, string pswd) {
+void editAccount(long int accnum, string pswd) {
 
     again1:
     //Account access options
@@ -188,52 +253,52 @@ void editAccount(int accnum, string pswd) {
 }
 
 //Function to give admin access over an account
-void admin(int accnum, string pswd) {
+void admin(long int accnum, string pswd) {
 
     again2:
-    cout << "Welcome " << name << " to your account number " << accnum << endl;
+    cout << "Welcome " << n.name << " to your account number " << accnum << endl;
     cout << "Select any one of the following options" << endl;
     cout << "1. View Account Details" << endl;
     cout << "2. Add Money to Account" << endl;
     cout << "3. Remove Money from Account" << endl;
     cout << "4. Exit" << endl;
 
-    int n;
-    cin >> n;
+    int n1;
+    cin >> n1;
 
-    switch (n) {
+    switch (n1) {
 
         //Account Viewing
         case 1:
-            cout << "Here are the details of your account" << endl;
+            {cout << "Here are the details of your account" << endl;
             //Add code to show Account Details
+            ifstream f2;
+            f2.open("bankaccounts.txt",ios::in);
 
+            while(f2.read((char*)&n,sizeof(n)))
+            {   if(accnum==n.retacc_no())
+                    {
+                        n.display_data();
+                        break;
+                    }
+
+            }
+            f2.close();
             break;
-
+            }
         //Account money addition
         case 2:
+          {
             cout << "Here are the details of your account" << endl;
-            //Add code to show Account Details
-
-            //Add code to add money to the account
-            int addmoney;
-            cout << "Enter the amount of money to add to your account" << endl;
-            cin >> addmoney;
-
+            n.add_m(accnum);
             break;
-
+          }
         //Account money withdrawal
         case 3:
-            cout << "Here are the details of your account" << endl;
-            //Add code to show Account Details
-
-            //Add code to subtract money from account
-            int submoney;
-            cout << "Enter the amount of money to be removed from your account" << endl;
-            cin >> submoney;
-
+        {   cout << "Here are the details of your account" << endl;
+            n.sub_m(accnum);
             break;
-
+        }
         //Exit statement
         case 4:
             exit(0);
@@ -247,38 +312,43 @@ void admin(int accnum, string pswd) {
 }
 
 //Function to give client access over an account
-void client(int accnum, string pswd) {
+void client(long int accnum, string pswd) {
     again3:
-    cout << "Welcome " << name << " to your account number" << endl;
+    cout << "Welcome " << n.name << " to your account number" << endl;
     cout << "Select any one of the following options" << endl;
     cout << "1. View Account Details" << endl;
     cout << "2. Add spending to Account" << endl;
     cout << "3. Exit" << endl;
 
-    int n;
-    cin >> n;
+    int n2;
+    cin >> n2;
 
-    switch(n) {
+    switch(n2) {
 
         //Account Viewing
         case 1:
-            cout << "Here are the details of your account" << endl;
+           {
+               cout << "Here are the details of your account" << endl;
             //Add code to show Account Details
+            ifstream f2;
+            f2.open("bankaccounts.txt",ios::in);
 
+            while(f2.read((char*)&n,sizeof(n)))
+            {   if(n.retacc_no()==accnum)
+                    {
+                        n.display_data();
+                        break;
+                    }
+
+            }
+            f2.close();
             break;
-
+           }
         //Account spending
         case 2:
-            cout << "Here are the details of your account" << endl;
-            //Add code to show Account Details
-
-            //Add code to spend money from account
-            int spendmoney;
-            cout << "Enter the amount of money to be spent from your account" << endl;
-            cin >> spendmoney;
-
-            break;
-
+           {cout << "Here are the details of your account" << endl;
+            n.sub_m(accnum);
+           }
         //Exit from account
         case 3:
             exit(0);
@@ -289,3 +359,4 @@ void client(int accnum, string pswd) {
             goto again3;
     }
 }
+
