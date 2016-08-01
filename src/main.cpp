@@ -5,19 +5,18 @@
 #include<string>
 using namespace std;
 
-class acc
-{       long int accnum1;
+class acc {
+    private:
+        long int accnum1;
         string pswd1;
         int cash1;
     public:
         void get_data();
         void display_data(); //only for debugging
-}n;
 
+get_data() {
 
-void acc::get_data()
-{
-
+        //INput cash nad password from user
         cout<<"Enter cash to deposit initially (min 500):";
         cin>>cash1;
         cout<<"Enter your account password:";
@@ -31,29 +30,30 @@ void acc::get_data()
         accnum1++;
         f.close();
 
+        //Outputting account number
         ofstream f1;
         f1.open("Acc_no.txt",ios::out);
-        f1<<accnum1;
+        f1 << accnum1;
         f1.close();
 
-        cout<<"Account no generated:"<<accnum1<<endl;
+        cout << "Account no generated:" << accnum1 << endl;
 
-        cout<<"Account created successfully";
-}
+        cout << "Account created successfully";
+    }
 
-void acc::display_data()
-{
+display_data() {
     ifstream f2;
     f2.open("bankaccounts.txt",ios::in);
 
-    while(f2.read((char*)&n,sizeof(n)))
-    {   //f2.read((char*)&n,sizeof(n));
+    while(f2.read((char*)&n,sizeof(n))){   //f2.read((char*)&n,sizeof(n));
         cout<<endl<<"Account number:"<<n.accnum1<<" ";
         cout<<"Cash in account:"<<n.cash1;
-    }
+        }
     f2.close();
 
-}
+    }
+
+}n;
 
 void newAccount();
 void editAccount(int, string);
@@ -142,8 +142,8 @@ int main() {
 }
 
 //Function to add new account
-void newAccount() 
-{       
+void newAccount()
+{
         cout<<"*** Welcome to new account creation ***";
         n.get_data();
         ofstream f;
@@ -157,7 +157,7 @@ void newAccount()
 //Function to edit existing account
 void editAccount(int accnum, string pswd) {
 
-    again1:
+    again1;
     //Account access options
     cout << "Enter the number corresponding to ";
     cout << "one of the following options" << endl;
