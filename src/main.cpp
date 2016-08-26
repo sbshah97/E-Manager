@@ -16,7 +16,7 @@ class acc {
 
 get_data() {
 
-        //INput cash nad password from user
+        //Input cash nad password from user
         cout<<"Enter cash to deposit initially (min 500):";
         cin>>cash1;
         cout<<"Enter your account password:";
@@ -63,11 +63,14 @@ void client(int, string);
 
 char name[256];
 
+void welcome();
+void bank_display();
+
+void bank_functions(int);
+
 int main() {
 
-    //Welcome Screen
-    cout << "Hello and Welcome to E- Manager" << endl;
-    cout << "Please enter your name below" << endl;
+    welcome();
 
     //Inputting user's name to greet the user.
 
@@ -76,12 +79,7 @@ int main() {
     printf("\n");
 
     //Start banking functions
-    again:
-    cout << "Enter any of the numbers go ahead" << endl;
-    cout << "What would you like to do from the following options:" << endl;
-    cout << "1. Create new account" << endl;
-    cout << "2. Edit existing account" << endl;
-    cout << "3. Exit" << endl;
+    bank_display();
 
     //Choose options
     int choice;
@@ -90,6 +88,29 @@ int main() {
     cin >> choice;
     printf("\n");
 
+    bank_functions(choice)
+        
+    }
+
+    return 0;
+}
+
+void welcome() {
+    //Welcome Screen
+    cout << "Hello and Welcome to E- Manager" << endl;
+    cout << "Please enter your name below" << endl;
+}
+
+void bank_display() {
+    cout << "Enter any of the numbers go ahead" << endl;
+    cout << "What would you like to do from the following options:" << endl;
+    cout << "1. Create new account" << endl;
+    cout << "2. Edit existing account" << endl;
+    cout << "3. Exit" << endl;
+
+}
+
+void bank_functions(int choice) {
     //Use of switch for any one of the options
     switch(choice) {
 
@@ -124,26 +145,18 @@ int main() {
             //In case account number doesn't match with the file
             else {
                 cout << "Account not found. Create a new account" << endl;
-                goto again;
                 }
             break;
 
         //Case to exit the program
         case 3:
             exit(0);
-
-        //In case none of the options are entered
-        default:
-            cout << "Enter an appropriate choice" << endl;
-            goto again;
     }
 
-    return 0;
 }
 
 //Function to add new account
-void newAccount()
-{
+void newAccount() {
         cout<<"*** Welcome to new account creation ***";
         n.get_data();
         ofstream f;
