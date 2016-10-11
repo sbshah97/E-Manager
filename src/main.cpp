@@ -2,6 +2,8 @@
 #include<cstdlib>
 #include<cmath>
 #include<algorithm>
+#include<cstdio>
+#include<fstream>
 #include<string>
 using namespace std;
 
@@ -11,10 +13,10 @@ class acc {
         string pswd1;
         int cash1;
     public:
-        void get_data();
-        void display_data(); //only for debugging
+        //void get_data();
+        //void display_data(); //only for debugging
 
-get_data() {
+void get_data() {
 
         //Input cash nad password from user
         cout<<"Enter cash to deposit initially (min 500):";
@@ -41,13 +43,13 @@ get_data() {
         cout << "Account created successfully";
     }
 
-display_data() {
+void display_data() {
     ifstream f2;
     f2.open("bankaccounts.txt",ios::in);
 
-    while(f2.read((char*)&n,sizeof(n))){   //f2.read((char*)&n,sizeof(n));
-        cout<<endl<<"Account number:"<<n.accnum1<<" ";
-        cout<<"Cash in account:"<<n.cash1;
+    while(f2.read((char*)this,sizeof(this))){   //f2.read((char*)&n,sizeof(n));
+        cout<<endl<<"Account number:"<<this->accnum1<<" ";
+        cout<<"Cash in account:"<<this->cash1;
         }
     f2.close();
 
@@ -88,9 +90,7 @@ int main() {
     cin >> choice;
     printf("\n");
 
-    bank_functions(choice)
-        
-    }
+    bank_functions(choice);
 
     return 0;
 }
@@ -111,6 +111,8 @@ void bank_display() {
 }
 
 void bank_functions(int choice) {
+	int accnum;
+	string pswd;
     //Use of switch for any one of the options
     switch(choice) {
 
@@ -170,7 +172,7 @@ void newAccount() {
 //Function to edit existing account
 void editAccount(int accnum, string pswd) {
 
-    again1;
+    again1:
     //Account access options
     cout << "Enter the number corresponding to ";
     cout << "one of the following options" << endl;
