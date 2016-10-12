@@ -16,12 +16,8 @@ Next should be fairly simple to follow.
 ##Usage
 This is primarily built to use for day-to-day usage in student life. It is very helpful at a later stage of life as well though.
 
-#Contributing
-- The repository is open to contribution from all interested developers. Kindly send us Pull Requests with explanation as to what changes you have done.
-- Also, you can write to us by opening an [Issue](https://github.com/salman-bhai/E-Manager/issues) and also solve a current issue if possible.
-- A detailed explanantion of how we came to building this software is maintained at the [Wiki](https://github.com/salman-bhai/E-Manager/wiki) page.
-- This repository was created by @[salman-bhai](https://github.com/salman-bhai) and @[aditya](https://github.com/aditya5558)
-
+#I want to contribute
+It's great if you want to contribute to this repository. If you are not sure where to start, follow this [link](https://github.com/salman-bhai/E-Manager/blob/master/CONTRIBUTING.md)
 
 ##License
 
