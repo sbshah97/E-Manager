@@ -2,11 +2,11 @@
 
 - The repository is open to contribution from all interested developers. Kindly send us Pull Requests with explanation as to what changes you have done.
 - Also, you can write to us by opening an [Issue](https://github.com/salman-bhai/E-Manager/issues) and also solve a current issue if possible.
-- A detailed explanantion of how we came to building this software is maintained at the [Wiki](https://github.com/salman-bhai/E-Manager/wiki) page.
+- A detailed explanation of how we came to building this software is maintained at the [Wiki](https://github.com/salman-bhai/E-Manager/wiki) page.
 - This repository was created by @[salman-bhai](https://github.com/salman-bhai) and @[aditya](https://github.com/aditya5558)
 
 When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change. 
+email, or any other method with the owners of this repository before making a change.
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
@@ -22,9 +22,9 @@ Follow the guidelines [here.](https://github.com/salman-bhai/E-Manager/blob/mast
 
 ## Pull Request Process
 
-1. Ensure any install or build dependencies are removed before the end of the layer when doing a 
+1. Ensure any install or build dependencies are removed before the end of the layer when doing a
    build.
-2. Update the README.md with details of changes to the interface, this includes new environment 
+2. Update the README.md with details of changes to the interface, this includes new environment
    variables, exposed ports, useful file locations and container parameters.
 3. Generate your Pull Request with proper commit messages.  
 4. Your commit message should properly describe the changes made. For more details see [how to write  
