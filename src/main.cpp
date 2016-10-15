@@ -68,6 +68,11 @@ void bank_display();
 
 void bank_functions(int);
 
+long long int hash[1000000]={0};
+void createHash(int account_num,int password){
+	return hash[account_num];
+}
+
 int main() {
 
 	welcome();
