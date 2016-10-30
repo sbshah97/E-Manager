@@ -6,13 +6,44 @@
 #include <string>
 
 using namespace std;
+void WriteString(ofstream& file,const string& str)
+{
+   unsigned len = str.size();
+   file.write( reinterpret_cast<const char*>( &len ), sizeof(len) );
+   file.write( str.c_str(), len );
+}
 
+string ReadString(ifstream& file)
+{
+  string str;
+  unsigned len;
+  file.read( reinterpret_cast<char*>( &len ), sizeof(len) );
+  if(len > 0)
+  {
+    char* buf = new char[len];
+    file.read( buf, len );
+    str.append( buf, len );
+    delete[] buf;
+  }
+  return str;
+}
+inline void WriteInteger(ofstream& file, int& num)
+{
+   file.write(reinterpret_cast<char *>(&num),sizeof(int));
+}
+
+int ReadInteger(ifstream& file)
+{
+   int num;
+   file.read(reinterpret_cast<char *>(&num),sizeof(int));
+   return num;
+}
 class acc
 {//class acc open
 
 	private:
 		//declaring variables to hold credentials of a account
-		long int accnum1;
+		int accnum1;
 		string pswd1;
 		int cash1;
 
@@ -33,7 +64,7 @@ class acc
 			f >> accnum1;
 			accnum1++;
 			f.close();
-
+				
 			//output account number
 			ofstream f1;
 			f1.open("Acc_no.txt", ios::out);
@@ -41,25 +72,29 @@ class acc
 			f1.close();
 
 			cout << "Account no generated:" << accnum1 << endl;
+			
+			ofstream outfile;                                       // writes object to binary file
+            		outfile.open ("bankaccounts.dat", ios::out | ios::binary);			
+            		WriteInteger(outfile, accnum1);
+            		WriteString( outfile, pswd1 );
+            		WriteInteger(outfile, cash1);
+            		outfile.close();
+			
 			cout << "Account created successfully\n";
 
 		}//function-get_data close
 
 		void display_data()
 		{//function-display_data open
-			//writing to file
-			ifstream f2;
-			f2.open("bankaccounts.txt", ios::in | ios::binary);
-
-			while (f2.read((char*)&n, sizeof(n)))
-			{//while open
-				//f2.read((char*)&n,sizeof(n));
-				cout  << "Account number:" << n.accnum1 << " ";
-				cout << "Cash in account:" << n.cash1 << "\n";
-
-			}//while close
-			//close filestream
-			f2.close();
+			
+			ifstream infile;                                      // reads object from binary file an displays it
+			infile.open("bankaccounts.dat", ios::in | ios::binary);
+            		int ac = ReadInteger (infile);
+            		string pass = ReadString(infile);
+            		int cash = ReadInteger (infile);
+                	cout  << "Account number : " << ac << " ";
+			cout << "Cash in account : " << cash << "\n";
+			infile.close();
 
 		}//function-display_data close
 
