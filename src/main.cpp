@@ -6,20 +6,18 @@
 #include <string>
 
 using namespace std;
-void WriteString(ofstream& file,const string& str)
-{
+
+void WriteString(ofstream& file,const string& str) {
    unsigned len = str.size();
    file.write( reinterpret_cast<const char*>( &len ), sizeof(len) );
    file.write( str.c_str(), len );
 }
 
-string ReadString(ifstream& file)
-{
+string ReadString(ifstream& file) {
   string str;
   unsigned len;
   file.read( reinterpret_cast<char*>( &len ), sizeof(len) );
-  if(len > 0)
-  {
+  if(len > 0) {
     char* buf = new char[len];
     file.read( buf, len );
     str.append( buf, len );
@@ -27,19 +25,19 @@ string ReadString(ifstream& file)
   }
   return str;
 }
-inline void WriteInteger(ofstream& file, int& num)
-{
+
+inline void WriteInteger(ofstream& file, int& num) {
    file.write(reinterpret_cast<char *>(&num),sizeof(int));
 }
 
-int ReadInteger(ifstream& file)
-{
+int ReadInteger(ifstream& file) {
    int num;
    file.read(reinterpret_cast<char *>(&num),sizeof(int));
    return num;
 }
-class acc
-{//class acc open
+
+class acc {
+	//class acc open
 
 	private:
 		//declaring variables to hold credentials of a account
@@ -49,8 +47,8 @@ class acc
 
 	public:
 
-		void get_data()
-		{//function-get_data open
+		void get_data() {
+			//function-get_data open
 			//input cash nad password from user
 			cout << "Enter cash to deposit initially (min 500):";
 			cin >> cash1;
@@ -84,8 +82,8 @@ class acc
 
 		}//function-get_data close
 
-		void display_data()
-		{//function-display_data open
+		void display_data(){
+			//function-display_data open
 			
 			ifstream infile;                                      // reads object from binary file an displays it
 			infile.open("bankaccounts.dat", ios::in | ios::binary);
@@ -102,6 +100,7 @@ class acc
 
 //array to hold name
 char name[256];
+
 //declaring the functions with respective function signatures
 void newAccount();
 void editAccount(int, string);
@@ -112,8 +111,8 @@ void bank_display();
 void bank_functions(int);
 
 //main function to run the code
-int main()
-{//function-main open
+int main(){
+	//function-main open
 
 	//display welcom screen
 	welcome();
@@ -140,8 +139,8 @@ int main()
 }//function-main close
 
 //function to handle the welcom screen
-void welcome()
-{//function-welcome open
+void welcome() {
+	//function-welcome open
 	//print welcome screen
 	cout << "Hello and Welcome to E- Manager" << endl;
 	cout << "Please enter your name below" << endl;
@@ -149,8 +148,8 @@ void welcome()
 }//function-welcome close
 
 //function driving the menu
-void bank_display()
-{//function-bank_display open
+void bank_display() {
+	//function-bank_display open
 
 	//print menu
 	cout << "Enter any of the numbers go ahead" << endl;
@@ -162,14 +161,15 @@ void bank_display()
 }//function-bank_display close
 
 //function handling funtionalies of the menu
-void bank_functions(int choice)
-{//function-bank_functions open
+void bank_functions(int choice) {
+	//function-bank_functions open
 
 	//display menu
 	bank_display();
 	//Use of switch for any one of the options
-	switch (choice)
-	{//switch open
+	switch (choice) {
+		//switch open
+		
 		//case to create new account
 		case 1:
 			newAccount();
@@ -182,35 +182,35 @@ void bank_functions(int choice)
 			cin >> accnum;
 
 			//Default account number set up.
-			if (accnum == 123456)
-			{//if1 open
+			if (accnum == 123456){ 
+				//if1 open
 
-			wrongpswd://labelling code snippet
-				string pswd;
-				cout << "Enter your account's password" << endl;
-				cin >> pswd;
-				if (pswd == "nitk2015")
-				{//if2 open
+				wrongpswd://labelling code snippet
+					string pswd;
+					cout << "Enter your account's password" << endl;
+					cin >> pswd;
+					if (pswd == "nitk2015"){
+						//if2 open
 
-					printf("\n");
-					editAccount(accnum, pswd);
+						printf("\n");
+						editAccount(accnum, pswd);
 
-				}//if2 close
-				else
-				{//else2 open
+					}//if2 close
+					else{
+						//else2 open
 
-					cout << "Wrong Password entered" << endl;
-					cout << "Try again" << endl;
-					printf("\n");
-					goto wrongpswd;
+						cout << "Wrong Password entered" << endl;
+						cout << "Try again" << endl;
+						printf("\n");
+						goto wrongpswd;
 
-				}//else2 close
+					}//else2 close
 
-			}//if1 close
+				}//if1 close
 
 			//handling the case of account number not matching with the file
-			else
-			{//else1 open
+			else {
+			//else1 open
 
 				cout << "Account not found. Create a new account" << endl;
 
@@ -226,8 +226,8 @@ void bank_functions(int choice)
 }//function-bank_functions close
 
 //function to add new account
-void newAccount()
-{//function-newAccount open
+void newAccount(){
+	//function-newAccount open
 	//receiving credentials and creaating account through function calls
 	cout << "*** Welcome to new account creation ***\n";
 	n.get_data();
@@ -240,13 +240,13 @@ void newAccount()
 }//function-newAccount close
 
 //function to edit existing account
-void editAccount(int accnum, string pswd)
-{//function-editAccount open
+void editAccount(int accnum, string pswd){
+	//function-editAccount open
 	//updating flag
 	bool running = true;
 
-	while (running)
-	{//while open
+	while (running){
+		//while open
 
 		//print account access options
 		cout << "Enter the number corresponding to";
@@ -259,8 +259,8 @@ void editAccount(int accnum, string pswd)
 		cin >> choice;
 
 		//switch to drive the acccount access menu
-		switch (choice)
-		{//switch open
+		switch (choice){
+			//switch open
 
 			//case handling admin access option
 			case 1:
@@ -288,16 +288,14 @@ void editAccount(int accnum, string pswd)
 }//function-editAccount close
 
 //function to give admin access over an account
-void admin(int accnum, string pswd)
-{//function-admin open
+void admin(int accnum, string pswd) {
+	//function-admin open
 	//updating flag
 	bool running = true;
 
-	while (running)
-	{//while open
+	while (running) {
 
-		cout
-		<< "Welcome " << name << " to your account number " << accnum << endl;
+		cout << "Welcome " << name << " to your account number " << accnum << endl;
 		cout << "Select any one of the following options" << endl;
 		cout << "1. View Account Details" << endl;
 		cout << "2. Add Money to Account" << endl;
@@ -308,8 +306,8 @@ void admin(int accnum, string pswd)
 		//read choice
 		cin >> n;
 
-		switch (n)
-		{//switch open
+		switch (n) {
+		//switch open
 
 			//case for account Viewing
 			case 1:
@@ -359,8 +357,8 @@ void admin(int accnum, string pswd)
 }//function-admin close
 
 //function to give client access over an account
-void client(int accnum, string pswd)
-{//function-client open
+void client(int accnum, string pswd) {
+	//function-client open
 
 	again3://labelling code snippet
 		//print menu screen
@@ -375,8 +373,8 @@ void client(int accnum, string pswd)
 		cin >> n;
 
 		//switch to drive the menu's functionality
-		switch (n)
-		{//switch open
+		switch (n){
+			//switch open
 			//case for account Viewing
 			case 1:
 				cout << "Here are the details of your account" << endl;
